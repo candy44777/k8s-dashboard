@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package k8s.dashboard.namespace;
+option go_package = "github.com/candy44777/k8s-dashboard/pkg/namespace";
+
+service Service {
+  rpc Query(Namespace) returns(Namespace);
+}
+
+message Namespace {
+  // @gotags: json:"name"
+  string name = 1;
+}
+
