@@ -50,7 +50,6 @@ clean: ## Remove previous build
 	@rm -f dist/${PROJECT_NAME}
 
 install: ## Install depence go package
-	# @go install github.com/infraboard/mcube/cmd/mcube@latest
 	@go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 	@go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 	@go install github.com/favadi/protoc-go-inject-tag@latest
@@ -61,11 +60,10 @@ pb: ## Copy mcube protobuf files to common/pb
 	@sudo rm -rf common/pb/github.com/infraboard/mcube/pb/*/*.go
 
 gen: ## Init Service
-	@protoc -I=. -I=common/pb --go_out=. --go_opt=module=${PKG} --go-grpc_out=. --go-grpc_opt=module=${PKG} pkg/*/pb/*.proto
+	@protoc -I=.  --go_out=. --go_opt=module=${PKG} --go-grpc_out=. --go-grpc_opt=module=${PKG} pkg/*/pb/*.proto
 	@go fmt ./...
 
-	@protoc-go-inject-tag -input=apps/*/*.pb.go
-	@mcube generate enum -p -m apps/*/*.pb.go
+	@protoc-go-inject-tag -input=pkg/*/*.pb.go
 
 
 help: ## Display this help screen

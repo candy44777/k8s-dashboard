@@ -4,11 +4,41 @@ package k8s.dashboard.namespace;
 option go_package = "github.com/candy44777/k8s-dashboard/pkg/namespace";
 
 service Service {
-  rpc Query(Namespace) returns(Namespace);
+  rpc QueryAll(RequestByNamespace) returns(NamespaceSet);
+  rpc GetByName(RequestByNamespace) returns(Namespace);
+  rpc Delete(RequestByNamespace) returns(Namespace);
+  rpc Create(Namespace) returns(Namespace);
+
+  rpc OverwriteLabel(RequestByLabel) returns(Namespace);
 }
 
 message Namespace {
   // @gotags: json:"name"
   string name = 1;
+  // @gotags: json:"label"
+  repeated Label label = 2;
 }
 
+message NamespaceSet {
+  // @gotags: json:"namespace"
+  repeated Namespace namespace = 1;
+}
+
+message Label {
+  // @gotags: json:"key"
+  string key = 1;
+  // @gotags: json:"value"
+  string value = 2;
+}
+
+message RequestByNamespace {
+  // @gotags: json:"name"
+  string name = 1;
+}
+
+message RequestByLabel {
+  // @gotags: json:"namespace"
+  Namespace Namespace = 1;
+  // @gotags: json:"label"
+  repeated Label  label = 2;
+}

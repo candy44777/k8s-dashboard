@@ -1,0 +1,13 @@
+[app]
+name = "----"
+
+[kube]
+config_path = "./conf/config"
+
+[http]
+host = "127.0.0.1"
+port = "9999"
+
+[grpc]
+host = "127.0.0.1"
+port = "8888"
